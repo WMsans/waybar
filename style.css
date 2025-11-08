@@ -34,7 +34,7 @@
 
 /* Main Window */
 window#waybar {
-    background: rgba(30, 30, 46, 0);
+    background: rgba(30, 30, 46, 0.75);
     border-top: 2px solid rgba(203, 166, 247, 0);
     color: @text;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
