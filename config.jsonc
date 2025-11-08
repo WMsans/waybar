@@ -1,148 +1,82 @@
 {
+	"include": [
+		"~/.config/waybar/modules/*.jsonc",
+		"~/.config/waybar/modules/custom/*.jsonc",
+		"~/.config/waybar/modules/hyprland/*.jsonc"
+
+		// modules that are not included by default:
+		// "~/.config/waybar/modules/extras/*.jsonc"
+	],
+
+	/*------------
+	    layout
+	------------*/
+
+	"modules-left": [
+		"group/user",
+		"custom/left_div#1",
+		"hyprland/workspaces",
+		"custom/right_div#1",
+		"hyprland/window"
+	],
+	"modules-center": [
+		"hyprland/windowcount",
+		"custom/left_div#2",
+		"temperature",
+		"custom/left_div#3",
+		"memory",
+		"custom/left_div#4",
+		"cpu",
+		"custom/left_inv#1",
+		"custom/left_div#5",
+		"custom/distro",
+		"custom/right_div#2",
+		"custom/right_inv#1",
+		"idle_inhibitor",
+		"clock#time",
+		"custom/right_div#3",
+		"clock#date",
+		"custom/right_div#4",
+		"network",
+		"bluetooth",
+		"custom/system_update",
+		"custom/right_div#5"
+	],
+	"modules-right": [
+		"mpris",
+		"custom/left_div#6",
+		"group/pulseaudio",
+		"custom/left_div#7",
+		"backlight",
+		"custom/left_div#8",
+		"battery",
+		"custom/left_inv#2",
+		"custom/power_menu"
+	],
+
+	/*-------------
+	    options
+	-------------*/
+
 	"layer": "top",
-	"position": "top",
-	"height": 12,
-	// "width": 1366,
-	"modules-left": ["wlr/taskbar"],
-	"modules-center": ["mpris"],
-	"modules-right": ["wireplumber", "bluetooth", "memory", "battery", "network", "custom/nightlight","custom/updates", "clock", "tray"],
-	"wlr/taskbar": {
-			"format": "{icon}",
-			"icon-size": 20,
-			"tooltip-format": "{title} | {app_id}",
-			"on-click": "activate",
-			"on-click-middle": "close",
-			"on-click-right": "fullscreen"
-	},
-	"niri/workspaces": {
-			"disable-scroll": true,
-			"all-outputs": false,
-			"format": "{icon}",
-			"format-icons": {
-					"1:web": "",
-					"2:code": "",
-					"3:term": "",
-					"4:work": "",
-					"5:music": "",
-					"6:docs": "",
-			}
-	},
-	"tray": {
-			// "icon-size": 21,
-			"spacing": 10
-	},
-	"clock": {
-		"format": "  {:%H:%M} ",
-        "format-alt": "  {:%a, %b %d, %Y} ",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "calendar": {
-                    "mode"          : "year",
-                    "mode-mon-col"  : 3,
-                    "weeks-pos"     : "right",
-                    "on-scroll"     : 1,
-                    "format": {
-                              "months":     "<span color='#ffead3'><b>{}</b></span>",
-                              "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-                              "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
-                              "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-                              "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
-                              }
-                    },
-        "actions":  {
-                    "on-click-right": "mode",
-                    "on-scroll-up": "tz_up",
-                    "on-scroll-down": "tz_down",
-                    "on-scroll-up": "shift_up",
-                    "on-scroll-down": "shift_down"
-                    },
-		"align": 1,
-	},
-	"cpu": {
-			"format": "󰍛  {usage}%"
-	},
-	"memory": {
-		"format": "  {}%",
-		"on-click": "konsole -e btop",
-	},
-	"battery": {
-		"states": {
-			"warning": 20,
-			"critical": 10
-		},
-		"format": "<span color='#ffffff'>{icon}</span>   {capacity}%",
-		"format-charging": "<span color='#e88939'> </span> {capacity}%{time}",
-		"format-plugged":  "<span color='#e88939'>{icon}  </span>   {capacity}%",
-		"format-discharging": "<span color='#e88939'>{icon}</span>   {capacity}% ({time})",
-		"format-full": "",
-		"format-icons": ["", "", "", "", ""]
-	},
-	"network": {
-		// "interface": "wlp2s0",
-		"format-wifi": " ",
-		"format-ethernet": "  {ifname}: {ipaddr}/{cidr}",
-		"format-disconnected": "⚠ ",
-		"tooltip-format": "{essid}",
-		"on-click": "konsole -e nmtui",
-	},
-	"wireplumber": {
-			"format": "{icon}  {volume}%",
-			"format-muted": "  ",
-			"on-click": "pwvucontrol",
-			"format-icons": ["", " "]
-	},
-	"bluetooth": {
-		"format": "",
-		"format-connected": " {device_alias}",
-		"format-connected-battery": " {device_battery_percentage}%  ",
-		"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-		"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-		"on-click": "blueberry"
-	},
-	"custom/updates": {
-		"format": "{} {icon}",
-		"return-type": "json",
-		"format-icons": {
-			"has-updates": " 󱍷 ",
-			"updated": " 󰂪 "
-		},
-		"exec-if": "which waybar-module-pacman-updates",
-		"exec": "waybar-module-pacman-updates 5 --interval-seconds 5 --network-interval-seconds 300 --tooltip-align-columns",
-		"on-click": "konsole -e ~/Programs/tools/sh/management"
-	},
-	"mpris": {
-		"format": "{player_icon}  {title} · {artist}",
-		"format-paused": "{status_icon}  {dynamic}",
-		"dynamic-order": ["title", "artist", "album"],
-		"dynamic-separator": " · ",
-		"player-icons": {
-			"default": "▶",
-			"mpv": "🎵",
-			"spotify": " ",
-			"firefox": " ",
-			"chrome": " ",
-			"vlc": "🎬",
-			"kdeconnect": ""
-		},
-		"status-icons": {
-			"paused": "⏸",
-			"playing": "▶",
-			"stopped": "⏹"
-		},
-		"tooltip": true,
-		"tooltip-format": "{player}\n{title}\n{artist} · {album}\n{position}/{length}",
-		"max-length": 60,
-		"on-click": "playerctl play-pause",
-		"on-click-middle": "playerctl stop",
-		"on-click-right": "playerctl next",
-		"smooth-scrolling-threshold": 1
-	},
-	"custom/nightlight": {
-		"format": "{}",
-		"return-type": "json",
-		"exec": "~/.config/waybar/scripts/nightlight-status.sh",
-		"on-click": "~/.config/waybar/scripts/nightlight-toggle.sh",
-		"tooltip": true,
-		"interval": "once",
-		"signal": 8
-	},
+	// "output":
+	// "position":
+	"height": 0,
+	"width": 0,
+	"margin": 0,
+	// "margin-top":
+	// "margin-left":
+	// "margin-bottom":
+	// "margin-right":
+	"spacing": 0,
+	// "name":
+	"mode": "dock",
+	// "start_hidden":
+	// "modifier-reset":
+	// "exclusive":
+	// "fixed-center":
+	// "passthrough":
+	// "ipc":
+	// "id":
+	"reload_style_on_change": true
 }
