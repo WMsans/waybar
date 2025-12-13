@@ -32,7 +32,7 @@
 			"spacing": 10
 	},
 	"clock": {
-		"format": "  {:%H:%M} ",
+		"format": "  {:%H:%M, %b %d}",
         "format-alt": "  {:%a, %b %d, %Y} ",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
